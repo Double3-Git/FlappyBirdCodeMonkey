@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CodeMonkey;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Bird : MonoBehaviour
@@ -28,4 +29,12 @@ public class Bird : MonoBehaviour
     {
         rb2d.velocity = Vector2.up * JUMP_AMOUNT;
     }
+
+    // OnTriggerEnter2D вызывается, когда Collider2D входит в триггер (только двухмерная физика)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        CMDebug.TextPopupMouse("Dead!");
+    }
+
+
 }
