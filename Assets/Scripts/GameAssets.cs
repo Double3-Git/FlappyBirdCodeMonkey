@@ -7,6 +7,10 @@ public class GameAssets : MonoBehaviour
     [Header("Sprites")]
     public Sprite pipeHeadSprite;
 
+    [Header("Prefabs")]
+    public Transform pfPipeHead;
+    public Transform pfPipeBody;
+
     private static GameAssets instance;
 
     public static GameAssets GetInstance() => instance;

@@ -11,11 +11,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameManager.Start");
 
-        int count = 0;
-        FunctionPeriodic.Create(() =>
-        {
-            CMDebug.TextPopupMouse($"Ding! {count++}");
-        }, .300f);
+        
     }
 
     // Update is called once per frame
