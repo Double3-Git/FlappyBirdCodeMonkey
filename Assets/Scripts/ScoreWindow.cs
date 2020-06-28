@@ -18,7 +18,7 @@ public class ScoreWindow : MonoBehaviour
     // Метод Update вызывается на каждом кадре, если класс MonoBehaviour включен
     private void Update()
     {
-        scoreText.text = $"Score: {Level.GetInstance().GetPipesSpawned()}";
+        scoreText.text = $"Score: {Level.GetInstance().GetPipesPassedCount()}";
     }
 
 

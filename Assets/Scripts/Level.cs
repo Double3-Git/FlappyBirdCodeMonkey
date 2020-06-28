@@ -10,16 +10,19 @@ public class Level : MonoBehaviour
     private const float PIPE_MOVE_SPEED =30f;
     private const float PIPE_DESTROY_X_POSITION = -110f;
     private const float PIPE_SPAWN_X_POSITION = 110f;
+    private const float BIRD_X_POSITION = -68f;
 
     private static Level instance;
     private List<Pipe> pipesList;
+    private int pipesPassedCount;
     private int pipesSpawned;
     private float pipeSpawnerTimer;
     private float pipeSpawnerTimerMax;
     private float gapSize;
 
     public static Level GetInstance() => instance;
-
+    public int GetPipesPassedCount() => pipesPassedCount;
+    
     public enum Difficulty
     {
         easy,
@@ -40,6 +43,7 @@ public class Level : MonoBehaviour
         pipesList = new List<Pipe>();
         pipeSpawnerTimerMax = 1.5f;
         SetDifficulty(Difficulty.easy);
+        pipesPassedCount = 0;
     }
 
 
@@ -80,7 +84,13 @@ public class Level : MonoBehaviour
         for(int i = 0; i < pipesList.Count; i++)
         {
             Pipe pipe = pipesList[i];
+            bool isToTheRightOfBird = pipe.GetXPosition() > BIRD_X_POSITION;
             pipe.Move();
+            if (pipe.IsBottom() && isToTheRightOfBird && pipe.GetXPosition() <= BIRD_X_POSITION)
+            {
+                // Pipe passes the bird
+                pipesPassedCount++;
+            }
             if (pipe.GetXPosition() < PIPE_DESTROY_X_POSITION)
             {
                 pipe.DestroySelf();
@@ -117,7 +127,7 @@ public class Level : MonoBehaviour
         pipeBodyBC2D.offset = new Vector2(0, height * .5f);
         //pipesList.Add(pipeBody);
 
-        Pipe pipe = new Pipe(pipeHead, pipeBody);
+        Pipe pipe = new Pipe(pipeHead, pipeBody, isBottom);
         pipesList.Add(pipe);
     }
 
@@ -163,11 +173,15 @@ public class Level : MonoBehaviour
     {
         Transform pipeHeadTransform;
         Transform pipeBodyTransform;
+        bool isBottom;
 
-        public Pipe(Transform pipeHeadTransform, Transform pipeBodyTransform)
+        public bool IsBottom() => isBottom;
+
+        public Pipe(Transform pipeHeadTransform, Transform pipeBodyTransform, bool isBottom)
         {
             this.pipeHeadTransform = pipeHeadTransform;
             this.pipeBodyTransform = pipeBodyTransform;
+            this.isBottom = isBottom;
         }
 
         public void Move()
