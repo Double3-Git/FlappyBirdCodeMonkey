@@ -11,11 +11,14 @@ public class Level : MonoBehaviour
     private const float PIPE_DESTROY_X_POSITION = -110f;
     private const float PIPE_SPAWN_X_POSITION = 110f;
 
+    private static Level instance;
     private List<Pipe> pipesList;
     private int pipesSpawned;
     private float pipeSpawnerTimer;
     private float pipeSpawnerTimerMax;
     private float gapSize;
+
+    public static Level GetInstance() => instance;
 
     public enum Difficulty
     {
@@ -28,6 +31,12 @@ public class Level : MonoBehaviour
     // Метод Awake вызывается во время загрузки экземпляра сценария
     private void Awake()
     {
+        // Singleton 
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(gameObject);
+
         pipesList = new List<Pipe>();
         pipeSpawnerTimerMax = 1.5f;
         SetDifficulty(Difficulty.easy);
@@ -144,6 +153,8 @@ public class Level : MonoBehaviour
         else if (pipesSpawned > 10) return Difficulty.medium;
         else return Difficulty.easy;
     }
+
+    public int GetPipesSpawned() => pipesSpawned;
 
     /*
      * Represents a single pipe
