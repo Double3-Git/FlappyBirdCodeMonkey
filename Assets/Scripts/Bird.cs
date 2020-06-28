@@ -54,7 +54,7 @@ public class Bird : MonoBehaviour
                 {
                     state = State.Flying;
                     rb2d.bodyType = RigidbodyType2D.Dynamic;
-                    if (OnStart != null) OnStart(this, EventArgs.Empty);
+                    OnStart?.Invoke(this, EventArgs.Empty);
                     Jump();
                 }
                 break;
@@ -81,7 +81,9 @@ public class Bird : MonoBehaviour
     {
         CMDebug.TextPopupMouse("Dead!");
         rb2d.bodyType = RigidbodyType2D.Static;
-        if (OnDied != null) OnDied(this, EventArgs.Empty); 
+        // Simplyfied
+        // if (OnDied != null) OnDied(this, EventArgs.Empty);
+        OnDied?.Invoke(this, EventArgs.Empty);
     }
 
 
