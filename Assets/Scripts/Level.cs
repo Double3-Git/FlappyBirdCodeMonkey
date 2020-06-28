@@ -7,8 +7,8 @@ public class Level : MonoBehaviour
     private const float CAMERA_ORTHO_SIZE = 50f;
     private const float PIPE_WIDTH = 10.4f;
     private const float PIPE_HEAD_HEIGHT = 3.75f;
-    private const float PIPE_MOVE_SPEED = 3f;
-
+    private const float PIPE_MOVE_SPEED = 5f;
+    private const float PIPE_DESTROY_X_POSITION = -110f;
     private List<Pipe> pipesList;
 
     // Метод Awake вызывается во время загрузки экземпляра сценария
@@ -34,9 +34,17 @@ public class Level : MonoBehaviour
 
     void HandlePipeMovement()
     {
-        foreach (Pipe pipe in pipesList)
+
+        for(int i = 0; i < pipesList.Count; i++)
         {
+            Pipe pipe = pipesList[i];
             pipe.Move();
+            if (pipe.GetXPosition() < PIPE_DESTROY_X_POSITION)
+            {
+                pipe.DestroySelf();
+                pipesList.Remove(pipe);
+                i--;
+            }
         }
     }
 
@@ -88,6 +96,16 @@ public class Level : MonoBehaviour
             pipeBodyTransform.position += Vector3.left * PIPE_MOVE_SPEED * Time.deltaTime;
         }
 
+        public float GetXPosition()
+        {
+            return pipeBodyTransform.transform.position.x;
+        }
+
+        public void DestroySelf()
+        {
+            Destroy(pipeBodyTransform.gameObject);
+            Destroy(pipeHeadTransform.gameObject);
+        }
     }
 
 }

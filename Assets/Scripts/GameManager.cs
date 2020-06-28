@@ -10,8 +10,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Debug.Log("GameManager.Start");
+        Debug.Log(SystemInfo.graphicsDeviceName);
 
-        
+
     }
 
     // Update is called once per frame
