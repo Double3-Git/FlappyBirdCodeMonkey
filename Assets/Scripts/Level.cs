@@ -19,6 +19,7 @@ public class Level : MonoBehaviour
     private float pipeSpawnerTimer;
     private float pipeSpawnerTimerMax;
     private float gapSize;
+    private State state;
 
     public static Level GetInstance() => instance;
     public int GetPipesPassedCount() => pipesPassedCount;
@@ -29,6 +30,13 @@ public class Level : MonoBehaviour
         medium,
         hard,
         impossible,
+    }
+
+    private enum State
+    {
+        waitingToStart,
+        playing,
+        gameOver,
     }
 
     // Метод Awake вызывается во время загрузки экземпляра сценария
@@ -44,21 +52,35 @@ public class Level : MonoBehaviour
         pipeSpawnerTimerMax = 1.5f;
         SetDifficulty(Difficulty.easy);
         pipesPassedCount = 0;
+
+        state = State.waitingToStart;
     }
 
 
     private void Start()
     {
-        //CreatePipe(40f, 0f, true);
-        //CreatePipe(50f, 0f, false);
-        CreateGapPipes(50f, gapSize, 20f);
+        Bird.GetInstance().OnDied += Bird_OnBirdDiedHandler;
+        Bird.GetInstance().OnStart += Bird_OnStart;
+    }
+
+    private void Bird_OnStart(object sender, System.EventArgs e)
+    {
+        state = State.playing;
+    }
+
+    private void Bird_OnBirdDiedHandler(object sender, System.EventArgs e)
+    {
+        state = State.gameOver;
     }
 
     // Метод Update вызывается на каждом кадре, если класс MonoBehaviour включен
     private void Update()
     {
-        HandlePipeMovement();
-        HandlePipeSpawning();
+        if (state == State.playing)
+        {
+            HandlePipeMovement();
+            HandlePipeSpawning();
+        }
     }
     
     private void HandlePipeSpawning()
