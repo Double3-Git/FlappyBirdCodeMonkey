@@ -7,14 +7,30 @@ public class Level : MonoBehaviour
     private const float CAMERA_ORTHO_SIZE = 50f;
     private const float PIPE_WIDTH = 10.4f;
     private const float PIPE_HEAD_HEIGHT = 3.75f;
-    private const float PIPE_MOVE_SPEED = 5f;
+    private const float PIPE_MOVE_SPEED =30f;
     private const float PIPE_DESTROY_X_POSITION = -110f;
+    private const float PIPE_SPAWN_X_POSITION = 110f;
+
     private List<Pipe> pipesList;
+    private int pipesSpawned;
+    private float pipeSpawnerTimer;
+    private float pipeSpawnerTimerMax;
+    private float gapSize;
+
+    public enum Difficulty
+    {
+        easy,
+        medium,
+        hard,
+        impossible,
+    }
 
     // Метод Awake вызывается во время загрузки экземпляра сценария
     private void Awake()
     {
         pipesList = new List<Pipe>();
+        pipeSpawnerTimerMax = 1.5f;
+        SetDifficulty(Difficulty.easy);
     }
 
 
@@ -22,14 +38,31 @@ public class Level : MonoBehaviour
     {
         //CreatePipe(40f, 0f, true);
         //CreatePipe(50f, 0f, false);
-        CreateGapPipes(50f, 20f, 20f);
-        CreateGapPipes(70f, 10f, 40f);
+        CreateGapPipes(50f, gapSize, 20f);
     }
 
     // Метод Update вызывается на каждом кадре, если класс MonoBehaviour включен
     private void Update()
     {
         HandlePipeMovement();
+        HandlePipeSpawning();
+    }
+    
+    private void HandlePipeSpawning()
+    {
+        pipeSpawnerTimer -= Time.deltaTime;
+        if (pipeSpawnerTimer < 0)
+        {
+            pipeSpawnerTimer += pipeSpawnerTimerMax;
+
+            float heightEdgeLimit = 10f;
+            float minHeight = gapSize * .5f + heightEdgeLimit;
+            float totalHeight = CAMERA_ORTHO_SIZE * 2f;
+            float maxHeight = totalHeight - gapSize * .5f - heightEdgeLimit;
+
+            float height = UnityEngine.Random.Range(minHeight, maxHeight);
+            CreateGapPipes(height, gapSize, PIPE_SPAWN_X_POSITION);
+        }
     }
 
     void HandlePipeMovement()
@@ -52,7 +85,10 @@ public class Level : MonoBehaviour
     {
         CreatePipe(gapY - gapSize * .5f, xPosition, true);
         CreatePipe(CAMERA_ORTHO_SIZE * 2f - gapY - gapSize * .5f, xPosition, false);
+        pipesSpawned++;
+        SetDifficulty(GetDifficulty());
     }
+
     void CreatePipe(float height, float xPosition, bool isBottom)
     {
         int multipler = isBottom ? 1 : -1;
@@ -74,6 +110,39 @@ public class Level : MonoBehaviour
 
         Pipe pipe = new Pipe(pipeHead, pipeBody);
         pipesList.Add(pipe);
+    }
+
+    private void SetDifficulty(Difficulty difficulty)
+    {
+        switch (difficulty)
+        {
+            case Difficulty.easy:
+                gapSize = 45f;
+                pipeSpawnerTimerMax = 1.5f;
+                break;
+            case Difficulty.medium:
+                gapSize = 35f;
+                pipeSpawnerTimerMax = 1.2f;
+                break;
+            case Difficulty.hard:
+                gapSize = 25f;
+                pipeSpawnerTimerMax = .9f;
+                break;
+            case Difficulty.impossible:
+                gapSize = 15f;
+                pipeSpawnerTimerMax = .7f;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public Difficulty GetDifficulty()
+    {
+        if (pipesSpawned > 30) return Difficulty.impossible;
+        else if (pipesSpawned > 20) return Difficulty.hard;
+        else if (pipesSpawned > 10) return Difficulty.medium;
+        else return Difficulty.easy;
     }
 
     /*
