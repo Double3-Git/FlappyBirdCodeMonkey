@@ -79,7 +79,7 @@ public class Bird : MonoBehaviour
     // OnTriggerEnter2D вызывается, когда Collider2D входит в триггер (только двухмерная физика)
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        CMDebug.TextPopupMouse("Dead!");
+        //CMDebug.TextPopupMouse("Dead!");
         rb2d.bodyType = RigidbodyType2D.Static;
         // Simplyfied
         // if (OnDied != null) OnDied(this, EventArgs.Empty);

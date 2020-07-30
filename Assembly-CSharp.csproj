@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\Bird.cs" />
     <Compile Include="Assets\Scripts\GameAssets.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\GameOverWindow.cs" />
     <Compile Include="Assets\Scripts\Level.cs" />
     <Compile Include="Assets\Scripts\ScoreWindow.cs" />
     <None Include="Assets\CodeMonkey\README.txt" />
