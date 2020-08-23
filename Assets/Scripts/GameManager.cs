@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Debug.Log("GameManager.Start");
-        Debug.Log(SystemInfo.graphicsDeviceName);
+
+        PlayerPrefs.SetInt("highscore", 10);
 
 
     }

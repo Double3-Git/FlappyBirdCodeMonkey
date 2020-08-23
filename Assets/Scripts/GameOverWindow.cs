@@ -13,9 +13,11 @@ public class GameOverWindow : MonoBehaviour
         scoreText = transform.Find("ScoreText").GetComponent<Text>();
         transform.Find("RetryButton").GetComponent<Button>().onClick.AddListener(() => 
                                             { Loader.Load(Loader.Scene.GameScene); });
+        transform.Find("RetryButton").GetComponent<Button>().AddButtonSound();
 
         transform.Find("MainMenuButton").GetComponent<Button>().onClick.AddListener(() =>
                                            { Loader.Load(Loader.Scene.MainMenu); });
+        transform.Find("MainMenuButton").GetComponent<Button>().AddButtonSound();
 
     }
 

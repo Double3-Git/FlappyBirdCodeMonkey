@@ -74,6 +74,7 @@ public class Bird : MonoBehaviour
     private void Jump()
     {
         rb2d.velocity = Vector2.up * JUMP_AMOUNT;
+        SoundManager.PlaySound(SoundManager.Sounds.BirdJump);
     }
 
     // OnTriggerEnter2D вызывается, когда Collider2D входит в триггер (только двухмерная физика)
@@ -84,6 +85,7 @@ public class Bird : MonoBehaviour
         // Simplyfied
         // if (OnDied != null) OnDied(this, EventArgs.Empty);
         OnDied?.Invoke(this, EventArgs.Empty);
+        SoundManager.PlaySound(SoundManager.Sounds.Loose);
     }
 
 

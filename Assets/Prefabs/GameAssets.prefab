@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1445301713363663050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1445301713363663051}
+  - component: {fileID: 1445301713363663052}
+  m_Layer: 0
+  m_Name: GameAssets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1445301713363663051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445301713363663050}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1445301713363663052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445301713363663050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c1a735ec7d9b343a8b3477a2f243d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pipeHeadSprite: {fileID: 0}
+  pfPipeHead: {fileID: 4071872797788927411, guid: f52ed79c03da14e4da65ca0f7ba2883e,
+    type: 3}
+  pfPipeBody: {fileID: 130042260591616312, guid: 0ced5bf441ad4b34f9834a733e1fb803,
+    type: 3}
+  soundAudioClips:
+  - sound: 0
+    audioClip: {fileID: 8300000, guid: 98180c6e462e607418d56d13fd9ec3ca, type: 3}
+  - sound: 1
+    audioClip: {fileID: 8300000, guid: 60b8fee85b42f51488f4b61d7f67d914, type: 3}
+  - sound: 2
+    audioClip: {fileID: 8300000, guid: c83e7e5393d1659448e80560191bf90c, type: 3}
+  - sound: 3
+    audioClip: {fileID: 8300000, guid: 7ee51524b4e36554f92f522a6bd265e0, type: 3}
+  - sound: 4
+    audioClip: {fileID: 8300000, guid: c53c3cd5e519d7741a15bed2f1e9ef6b, type: 3}

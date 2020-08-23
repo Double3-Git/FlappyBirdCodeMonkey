@@ -112,6 +112,7 @@ public class Level : MonoBehaviour
             {
                 // Pipe passes the bird
                 pipesPassedCount++;
+                SoundManager.PlaySound(SoundManager.Sounds.Score);
             }
             if (pipe.GetXPosition() < PIPE_DESTROY_X_POSITION)
             {
