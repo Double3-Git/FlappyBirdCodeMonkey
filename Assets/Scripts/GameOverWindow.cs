@@ -13,7 +13,10 @@ public class GameOverWindow : MonoBehaviour
         scoreText = transform.Find("ScoreText").GetComponent<Text>();
         transform.Find("RetryButton").GetComponent<Button>().onClick.AddListener(() => 
                                             { Loader.Load(Loader.Scene.GameScene); });
-        
+
+        transform.Find("MainMenuButton").GetComponent<Button>().onClick.AddListener(() =>
+                                           { Loader.Load(Loader.Scene.MainMenu); });
+
     }
 
     // Метод Start вызывается перед первым вызовом какого-либо метода Update
