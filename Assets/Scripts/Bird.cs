@@ -86,6 +86,7 @@ public class Bird : MonoBehaviour
         // if (OnDied != null) OnDied(this, EventArgs.Empty);
         OnDied?.Invoke(this, EventArgs.Empty);
         SoundManager.PlaySound(SoundManager.Sounds.Loose);
+     
     }
 
 

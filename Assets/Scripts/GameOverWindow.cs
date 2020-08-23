@@ -6,11 +6,14 @@ using UnityEngine.UI;
 public class GameOverWindow : MonoBehaviour
 {
     private Text scoreText;
+    private Text highScoreText;
 
     // Метод Awake вызывается во время загрузки экземпляра сценария
     private void Awake()
     {
         scoreText = transform.Find("ScoreText").GetComponent<Text>();
+        highScoreText = transform.Find("HighScoreText").GetComponent<Text>();
+
         transform.Find("RetryButton").GetComponent<Button>().onClick.AddListener(() => 
                                             { Loader.Load(Loader.Scene.GameScene); });
         transform.Find("RetryButton").GetComponent<Button>().AddButtonSound();
@@ -31,6 +34,8 @@ public class GameOverWindow : MonoBehaviour
     private void Bird_OnDied(object sender, System.EventArgs e)
     {
         scoreText.text = $"Score: {Level.GetInstance().GetPipesPassedCount()}";
+
+        highScoreText.text = Level.GetInstance().GetPipesPassedCount() > Score.GetHighScore() ? "New HighScore!!!" : $"HighScore: {Score.GetHighScore()}";
         Show();
     }
 

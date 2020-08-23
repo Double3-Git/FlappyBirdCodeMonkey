@@ -11,8 +11,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameManager.Start");
 
-        PlayerPrefs.SetInt("highscore", 10);
-
+        Score.Start();
 
     }
 
